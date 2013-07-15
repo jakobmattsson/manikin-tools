@@ -5,8 +5,7 @@
   "main": "./lib/manikin-tools.js",
   "author": "Jakob Mattsson <jakob.mattsson@gmail.com> (jakobmattsson.se)",
   "engines": {
-    "npm": "1.1.x",
-    "node": "0.8.x"
+    "node": ">= 0.8.x < 0.12"
   },
   "scripts": {
     "pretest": "coffee -co lib src",
@@ -16,13 +15,13 @@
     "prestart": "coffee -co lib src"
   },
   "dependencies": {
-    "underscore": "1.4.3"
+    "underscore": ">= 1.4.3 < 2"
   },
   "devDependencies": {
-    "jscov": "0.4.1",
-    "mocha-term-cov-reporter": "0.1.0",
-    "mocha": "1.7.4",
-    "coffee-script": "1.4.0",
-    "should": "1.2.1"
+    "jscov": ">= 0.4.1 < 5",
+    "mocha-term-cov-reporter": ">= 0.1.3 < 0.2",
+    "mocha": ">= 1.7.4 < 2",
+    "coffee-script": ">= 1.4.0 < 2",
+    "should": ">= 1.2.1 < 2"
   }
 }
