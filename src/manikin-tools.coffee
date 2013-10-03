@@ -72,7 +72,7 @@ exports.getMeta = (specmodels) ->
 
   Object.keys(specmodels).forEach (modelName) ->
     meta[modelName] = meta[modelName] || {}
-    meta[modelName].owners = _.pairs(specmodels[modelName].owners).map ([sing, plur]) -> { sing: sing, plur: plur }
+    meta[modelName].owners = _.pairs(specmodels[modelName].owners || {}).map ([sing, plur]) -> { sing: sing, plur: plur }
 
     meta[modelName].fields = [
       name: 'id'
