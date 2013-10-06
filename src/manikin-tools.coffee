@@ -69,8 +69,11 @@ exports.getMeta = (specmodels) ->
   meta = {}
 
   Object.keys(specmodels).forEach (modelName) ->
+    if !specmodels[modelName].owners? || !specmodels[modelName].fields? || !specmodels[modelName].indirectOwners?
+      throw new Error("The models passed to getMeta must be desugared")
+
     meta[modelName] = meta[modelName] || {}
-    meta[modelName].owners = _.pairs(specmodels[modelName].owners || {}).map ([sing, plur]) -> { sing: sing, plur: plur }
+    meta[modelName].owners = _.pairs(specmodels[modelName].owners).map ([sing, plur]) -> { sing: sing, plur: plur }
 
     meta[modelName].fields = [
       name: 'id'
@@ -79,20 +82,20 @@ exports.getMeta = (specmodels) ->
       type: 'string'
     ]
 
-    meta[modelName].fields = meta[modelName].fields.concat _.pairs(specmodels[modelName].fields || {}).filter(([k, v]) -> v.type != 'hasMany').map ([k, v]) -> {
+    meta[modelName].fields = meta[modelName].fields.concat _.pairs(specmodels[modelName].fields).filter(([k, v]) -> v.type != 'hasMany').map ([k, v]) -> {
       name: k
       readonly: k == '_id'
       required: !!v.require
       type: v.type
     }
 
-    meta[modelName].fields = meta[modelName].fields.concat _.pairs(specmodels[modelName].owners || {}).map ([k, v]) ->
+    meta[modelName].fields = meta[modelName].fields.concat _.pairs(specmodels[modelName].owners).map ([k, v]) ->
       name: k
       readonly: true
       required: true
       type: 'string'
 
-    meta[modelName].fields = meta[modelName].fields.concat _.pairs(specmodels[modelName].indirectOwners || {}).map ([k, v]) ->
+    meta[modelName].fields = meta[modelName].fields.concat _.pairs(specmodels[modelName].indirectOwners).map ([k, v]) ->
       name: k
       readonly: true
       required: true

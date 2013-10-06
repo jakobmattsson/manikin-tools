@@ -268,3 +268,29 @@ it "should provide an interface for meta data", ->
         { name: 'id',      readonly: true,  required: false, type: 'string'  }
         { name: 'name',    readonly: false, required: false, type: 'string'  }
       ]
+
+
+it "should not process meta-data unless it has been desugared first", ->
+
+  data =
+    accounts:
+      owners: {}
+      fields:
+        name: { type: 'string', default: '' }
+
+    companies:
+      owners:
+        account: 'accounts'
+      fields:
+        name: { type: 'string', default: '' }
+        orgnr: { type: 'string', default: '' }
+
+    customers:
+      owners:
+        company: 'companies'
+      fields:
+        name: { type: 'string' }
+        at: { type: 'hasMany', model: 'companies' }
+
+  f = -> tools.getMeta(data)
+  f.should.throw new Error()
