@@ -4,6 +4,7 @@
   "version": "0.1.3",
   "main": "./lib/manikin-tools.js",
   "author": "Jakob Mattsson <jakob.mattsson@gmail.com> (jakobmattsson.se)",
+  "license" : "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/jakobmattsson/manikin-tools.git"
