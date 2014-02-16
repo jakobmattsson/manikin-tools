@@ -136,18 +136,30 @@ it "should support indirect owners", ->
 
 
 
-it "should support validations", ->
+it "should support validations for most types", ->
   f = (x) -> x.length > 5
 
   dataIn =
     questions:
       fields:
-        name: { type: 'string', validate: f }
+        name1: { type: 'string', validate: f }
+        name2: { type: 'mixed', validate: f }
+        name3: { type: 'number', validate: f }
+        name4: { type: 'date', validate: f }
+        name5: { type: 'boolean', validate: f }
+        name6: { type: 'hasOne', validate: f }
+        name7: { type: 'hasMany', validate: f }
 
   dataOut =
     questions:
       fields:
-        name: { type: 'string', required: false, unique: false, index: false, validate: f }
+        name1: { type: 'string', required: false, unique: false, index: false, validate: f }
+        name2: { type: 'mixed', validate: f }
+        name3: { type: 'number', required: false, unique: false, index: false, validate: f }
+        name4: { type: 'date', required: false, unique: false, index: false, validate: f }
+        name5: { type: 'boolean', required: false, unique: false, index: false, validate: f }
+        name6: { type: 'hasOne', validate: f }
+        name7: { type: 'hasMany', validate: f, inverseName: "name7" }
       owners: {}
       indirectOwners: {}
 

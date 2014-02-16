@@ -12,6 +12,7 @@ desugarModel = (modelName, tgt, src, keys) ->
       throw new Error("must assign a type: " + key)
     else if src[key].type == 'mixed'
       tgt[key] = { type: 'mixed' }
+      tgt[key].validate = src[key].validate if src[key].validate?
     else if src[key].type == 'nested'
       tgt[key] = { type: 'nested' }
       desugarModel(modelName, tgt[key], src[key], _.without(Object.keys(src[key]), 'type'))
